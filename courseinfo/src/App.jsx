@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import personService from './services/persons'
+import personService from './services/person'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
@@ -10,12 +10,10 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
 
-  // Load initial data
   useEffect(() => {
     personService.getAll().then(data => setPersons(data))
   }, [])
 
-  // Add or update person
   const addPerson = (event) => {
     event.preventDefault()
     const existingPerson = persons.find(p => p.name === newName)
@@ -39,7 +37,6 @@ const App = () => {
     setNewNumber('')
   }
 
-  // Delete person
   const handleDelete = (id, name) => {
     if (window.confirm(`Delete ${name}?`)) {
       personService.remove(id)
